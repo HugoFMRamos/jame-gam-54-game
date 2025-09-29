@@ -41,12 +41,18 @@ public class TeleportClosePopup : PopupWindow
         });
     }
 
-    private void MoveButton(RectTransform rt)
+    private void MoveButton(RectTransform rt, float padding = 20f)
     {
-        float x = Random.Range(-buttonParent.rect.width / 2f, buttonParent.rect.width / 2f);
-        float y = Random.Range(-buttonParent.rect.height / 2f, buttonParent.rect.height / 2f);
+        float halfWidth = buttonParent.rect.width / 2f;
+        float halfHeight = buttonParent.rect.height / 2f;
 
-        rt.anchoredPosition = new Vector2(x, y);
+        float safeX = halfWidth - padding - rt.rect.width / 2f;
+        float safeY = halfHeight - padding - rt.rect.height / 2f;
+
+        float x = Random.Range(-safeX, safeX);
+        float y = Random.Range(-safeY, safeY);
+
+        rt.localPosition = new Vector3(x, y, 0f);
     }
 
     protected override void OnComplete()
